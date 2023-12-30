@@ -28,6 +28,7 @@ export const Product = sequelize.define('product', {
     title: {
         type: DataTypes.STRING,
         allowNull: false,
+        unique: true,
     },
     price: {
         type: DataTypes.STRING,
@@ -49,3 +50,19 @@ export const Product = sequelize.define('product', {
         type: DataTypes.STRING,
     },
 });
+
+export const Category = sequelize.define('category', {
+    id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+    },
+    name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true,
+    },
+});
+
+Category.hasMany(Product);
+Product.belongsTo(Category);
