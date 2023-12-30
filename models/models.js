@@ -25,6 +25,10 @@ export const Product = sequelize.define('product', {
         primaryKey: true,
         autoIncrement: true,
     },
+    title: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
     price: {
         type: DataTypes.STRING,
         allowNull: false,
