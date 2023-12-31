@@ -46,8 +46,24 @@ export const Product = sequelize.define('product', {
         allowNull: false,
         defaultValue: 1,
     },
-    image: {
+    images: {
+        type: DataTypes.JSON,
+    },
+    material: {
         type: DataTypes.STRING,
+        allowNull: false,
+    },
+    insole: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    season: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    country: {
+        type: DataTypes.STRING,
+        allowNull: false,
     },
 });
 

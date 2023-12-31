@@ -4,15 +4,19 @@ import { findFilterFields } from '../utils/controller.js';
 
 class ProductController {
     async create(req, res) {
-        const { title, price, discount, gender, amount, image, categoryId } = req.body;
+        const { title, price, discount, gender, amount, images, categoryId, material, insole, season, country } = req.body;
         const product = await Product.create({
             title,
             price,
             discount,
             gender,
             amount,
-            image,
+            images,
             categoryId,
+            material,
+            insole,
+            season,
+            country
         });
 
         return res.json(product);
