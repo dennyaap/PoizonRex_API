@@ -1,6 +1,6 @@
 import { matchedData } from 'express-validator';
-import { Category, Role } from '../models/models.js';
 import ApiError from '../error/ApiError.js';
+import Role from '../models/Role.js';
 // import ApiError from '../error/ApiError.js';
 
 class RoleController {

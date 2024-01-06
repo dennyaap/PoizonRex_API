@@ -1,6 +1,6 @@
-import { Category } from '../models/models.js';
 import ApiError from '../error/ApiError.js';
 import { matchedData } from 'express-validator';
+import Category from '../models/Category.js';
 
 class CategoryController {
     async create(req, res) {

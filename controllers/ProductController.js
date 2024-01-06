@@ -1,6 +1,6 @@
 import { matchedData } from 'express-validator';
-import { Product, ViewedProduct } from '../models/models.js';
-import ApiError from '../error/ApiError.js';
+import Product from '../models/Product.js';
+import ViewedProduct from '../models/ViewedProduct.js';
 
 class ProductController {
     async create(req, res, next) {

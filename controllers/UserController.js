@@ -1,9 +1,10 @@
 import { matchedData } from 'express-validator';
 
 import ApiError from '../error/ApiError.js';
-import { User } from '../models/models.js';
+import User from '../models/user.js';
 
 import { generateJwt, getUserParameter } from '../utils/auth.js';
+import { roles } from '../config/roles.js';
 
 const findUser = (queryId) => {
     return User.findOne({ where: { queryId } });
@@ -16,7 +17,7 @@ class UserController {
         if (await findUser(queryId)) {
             return next(ApiError.badRequest('This user already exists'));
         }
-        const user = await User.create({ queryId, roleId: 2 });
+        const user = await User.create({ queryId, roleId: roles.USER });
 
         const token = generateJwt(user.id, user.roleId);
 

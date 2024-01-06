@@ -1,6 +1,6 @@
 import { matchedData } from 'express-validator';
-import { Color } from '../models/models.js';
 import ApiError from '../error/ApiError.js';
+import Color from '../models/Color.js';
 
 class ColorController {
     async create(req, res) {

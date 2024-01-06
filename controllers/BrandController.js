@@ -1,6 +1,5 @@
 import { matchedData } from 'express-validator';
-import { Brand } from '../models/models.js';
-import ApiError from '../error/ApiError.js';
+import Brand from '../models/Brand.js';
 
 class BrandController {
     async create(req, res) {
