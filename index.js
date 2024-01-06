@@ -7,11 +7,9 @@ import ErrorHandlingMiddleware from './middleware/ErrorHandlingMiddleware.js';
 
 import TelegramBot from 'node-telegram-bot-api';
 
-import { User, Product } from './models/models.js';
-
 dotenv.config();
-const PORT = process.env.PORT || 5000;
 
+const PORT = process.env.PORT || 5000;
 const app = express();
 
 app.use(cors({ origin: '*', credentials: true }));
