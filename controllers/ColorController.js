@@ -4,56 +4,35 @@ import ApiError from '../error/ApiError.js';
 
 class ColorController {
     async create(req, res) {
-        try {
-            const { name } = matchedData(req);
+        const { name } = matchedData(req);
+        const color = await Color.create({ name });
 
-            const color = await Color.create({ name });
-
-            return res.json(color);
-        } catch (err) {
-            console.log(err);
-            return next(ApiError.internal('failed to create color'));
-        }
+        return res.json(color);
     }
 
     async getAll(req, res, next) {
-        try {
-            const colors = await Color.findAll();
-            return res.json(colors);
-        } catch (err) {
-            console.log(err);
-            return next(ApiError.internal('failed to get colors'));
-        }
+        const colors = await Color.findAll();
+        return res.json(colors);
     }
 
     async remove(req, res, next) {
-        try {
-            const { id } = matchedData(req);
-            const color = await Color.findOne({ where: { id } });
+        const { id } = matchedData(req);
+        const color = await Color.findOne({ where: { id } });
 
-            if (color) {
-                await Color.destroy({ where: { id } });
+        if (color) {
+            await Color.destroy({ where: { id } });
 
-                return res.json(color);
-            }
-
-            return next(ApiError.badRequest('there is no color with this id'));
-        } catch (err) {
-            console.log(err);
-            return next(ApiError.internal('failed to remove color'));
+            return res.json(color);
         }
+
+        return next(ApiError.badRequest('there is no color with this id'));
     }
 
     async update(req, res) {
-        try {
-            const { id, name } = matchedData(req);
-            const color = await Color.update({ where: { id } }, { name });
+        const { id, name } = matchedData(req);
+        const color = await Color.update({ where: { id } }, { name });
 
-            return res.json(color);
-        } catch (err) {
-            console.log(err);
-            return next(ApiError.internal('failed to update color'));
-        }
+        return res.json(color);
     }
 }
 
