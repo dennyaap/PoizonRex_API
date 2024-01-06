@@ -1,6 +1,6 @@
-import jwt from 'jsonwebtoken';
 import ApiError from '../error/ApiError.js';
 import { verifyToken } from '../utils/auth.js';
+import JwtError from '../error/JwtError.js';
 
 export default function (req, res, next) {
     try {
@@ -10,11 +10,14 @@ export default function (req, res, next) {
             return next(ApiError.badRequest('Invalid token'));
         }
 
-        const decoded = verifyToken(token);
-        req.user = decoded;
+        const verified = verifyToken(token);
+        req.user = verified;
 
         return next();
-    } catch (e) {
-        return next(ApiError.unauthorized('Not authorized'));
+    } catch (err) {
+        JwtError.catchInvalidJwt(err);
+        JwtError.catchExpiredJwt(err);
+
+        throw err;
     }
 }
