@@ -7,9 +7,22 @@ export const User = sequelize.define('user', {
         primaryKey: true,
         autoIncrement: true,
     },
-    token: {
+    queryId: {
         type: DataTypes.STRING,
         allowNull: false,
+    },
+});
+
+export const Role = sequelize.define('role', {
+    id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+    },
+    name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true,
     },
 });
 
@@ -25,11 +38,11 @@ export const Product = sequelize.define('product', {
         unique: true,
     },
     price: {
-        type: DataTypes.FLOAT,
+        type: DataTypes.INTEGER,
         allowNull: false,
     },
     discount: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT,
     },
     gender: {
         type: DataTypes.ENUM,
@@ -164,7 +177,7 @@ export const Order = sequelize.define('order', {
         autoIncrement: true,
     },
     totalPrice: {
-        type: DataTypes.FLOAT,
+        type: DataTypes.INTEGER,
         allowNull: false,
     },
 });
@@ -274,6 +287,11 @@ Cart.belongsTo(Product);
 Product.hasMany(OrderContent);
 OrderContent.belongsTo(Product);
 
+// Role
+Role.hasMany(User);
+User.belongsTo(Role);
+
+// User
 User.hasMany(ViewedProduct);
 ViewedProduct.belongsTo(User);
 
@@ -283,6 +301,7 @@ Favorite.belongsTo(User);
 User.hasMany(Cart);
 Cart.belongsTo(User);
 
+// Order
 Order.hasMany(OrderContent);
 OrderContent.belongsTo(Order);
 
@@ -292,6 +311,7 @@ Order.belongsTo(OrderStatus);
 User.hasMany(Order);
 Order.belongsTo(User);
 
+// Delivery
 User.hasMany(Delivery);
 Delivery.belongsTo(User);
 
