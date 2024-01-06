@@ -46,6 +46,11 @@ export const productGetOneValidation = [
         .withMessage('missing id parameter')
         .toInt()
         .withMessage('the id parameter must be a number'),
+    body('userId')
+        .notEmpty()
+        .withMessage('userId must not be empty')
+        .isInt()
+        .withMessage('userId must be a number'),
 ];
 
 export const productCreateValidation = [

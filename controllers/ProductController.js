@@ -1,5 +1,5 @@
 import { matchedData } from 'express-validator';
-import { Product } from '../models/models.js';
+import { Product, ViewedProduct } from '../models/models.js';
 import ApiError from '../error/ApiError.js';
 
 class ProductController {
@@ -29,8 +29,15 @@ class ProductController {
 
     async getOne(req, res) {
         try {
-            const { id } = matchedData(req);
+            const { id, userId } = matchedData(req);
             const product = await Product.findOne({ where: { id } });
+
+            const viewedProduct = await ViewedProduct.findOne({ where: { productId: id, userId } });
+
+            if (!viewedProduct) {
+                // The user viewed the product
+                await ViewedProduct.create({ productId: id, userId });
+            }
 
             return res.json(product);
         } catch (err) {
