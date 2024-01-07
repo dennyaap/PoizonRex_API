@@ -1,6 +1,7 @@
 import { matchedData } from 'express-validator';
 import Product from '../models/Product.js';
 import ViewedProduct from '../models/ViewedProduct.js';
+import Image from '../models/Image.js';
 
 class ProductController {
     async create(req, res, next) {
@@ -45,6 +46,19 @@ class ProductController {
         const product = await Product.update({ where: { id }, data });
 
         return res.json(product);
+    }
+
+    async addImages(req, res) {
+        const { id } = matchedData(req);
+        let images = req.images;
+
+        if (images) {
+            images = images.map(
+                async (image) => await Image.create({ name: image.name, productId: id }),
+            );
+        }
+
+        return res.json(images);
     }
 }
 

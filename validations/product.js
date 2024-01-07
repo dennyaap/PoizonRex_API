@@ -94,11 +94,6 @@ export const productCreateValidation = [
         .withMessage('colorId must not be empty')
         .isInt()
         .withMessage('colorId must be a number'),
-    body('images')
-        .notEmpty()
-        .withMessage('images must not be empty')
-        .isArray()
-        .withMessage('images must be a array'),
 ];
 
 export const productRemoveValidation = [
@@ -163,10 +158,12 @@ export const productUpdateValidation = [
         .withMessage('colorId must not be empty')
         .isInt()
         .withMessage('colorId must be a number'),
-    // body('images')
-    //     .optional()
-    //     .notEmpty()
-    //     .withMessage('images must not be empty')
-    //     .isArray()
-    //     .withMessage('images must be a array'),
+];
+
+export const productAddImageValidation = [
+    param('id')
+        .exists()
+        .withMessage('missing id parameter')
+        .toInt()
+        .withMessage('the id parameter must be a number'),
 ];
