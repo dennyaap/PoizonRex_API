@@ -3,18 +3,10 @@ import Product from '../models/Product.js';
 
 export const filterProductOptions = async (data, optionalValues) => {
     const name = data.name;
-    const maxPrice = data.maxPrice;
+    const maxPrice = data.maxPrice ?? (await Product.max('price'));
     const minPrice = data.minPrice ?? 0;
 
-    let productMaxPrice = maxPrice;
-
-    if (!productMaxPrice) {
-        productMaxPrice = await Product.max('price');
-    }
-
-    const options = {};
-
-    options.price = { [Op.between]: [minPrice, productMaxPrice] };
+    const options = { price: { [Op.between]: [minPrice, maxPrice] } };
 
     if (name) {
         options.name = { [Op.iLike]: `%${name}%` };
@@ -23,6 +15,7 @@ export const filterProductOptions = async (data, optionalValues) => {
         if (optionalValues.includes(key)) {
             return { ...obj, [key]: data[key] };
         }
+        return obj;
     }, {});
 
     return Object.assign(options, findedOptionalValues);
