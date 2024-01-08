@@ -1,6 +1,6 @@
 import { Router } from 'express';
 
-import roleController from '../controllers/RoleController.js';
+import { roleController } from '../controllers/index.js';
 import {
     roleCreateValidation,
     roleRemoveValidation,

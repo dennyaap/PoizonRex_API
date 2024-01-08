@@ -1,6 +1,6 @@
 import { Router } from 'express';
 
-import brandController from '../controllers/BrandController.js';
+import { brandController } from '../controllers/index.js';
 import {
     brandCreateValidation,
     brandRemoveValidation,

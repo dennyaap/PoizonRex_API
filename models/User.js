@@ -34,4 +34,7 @@ Delivery.belongsTo(User);
 User.hasMany(Order);
 Order.belongsTo(User);
 
+Role.hasMany(User);
+User.belongsTo(Role);
+
 export default User;

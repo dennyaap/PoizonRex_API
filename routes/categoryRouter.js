@@ -1,6 +1,6 @@
 import { Router } from 'express';
 
-import categoryController from '../controllers/CategoryController.js';
+import { categoryController } from '../controllers/index.js';
 import {
     categoryCreateValidation,
     categoryRemoveValidation,

@@ -1,6 +1,5 @@
 import sequelize from '../db.js';
 import { DataTypes } from 'sequelize';
-import User from './user.js';
 
 export const Role = sequelize.define('role', {
     id: {
@@ -14,8 +13,5 @@ export const Role = sequelize.define('role', {
         unique: true,
     },
 });
-
-Role.hasMany(User);
-User.belongsTo(Role);
 
 export default Role;

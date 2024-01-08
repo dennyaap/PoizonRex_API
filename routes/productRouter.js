@@ -1,6 +1,6 @@
 import { Router } from 'express';
 
-import productController from '../controllers/ProductController.js';
+import { productController } from '../controllers/index.js';
 import {
     productGetOneValidation,
     productGetAllValidation,

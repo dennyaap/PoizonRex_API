@@ -1,6 +1,6 @@
 import { Router } from 'express';
 
-import colorController from '../controllers/ColorController.js';
+import { colorController } from '../controllers/index.js';
 import {
     colorCreateValidation,
     colorRemoveValidation,
