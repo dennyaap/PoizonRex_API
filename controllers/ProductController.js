@@ -1,19 +1,60 @@
 import { matchedData } from 'express-validator';
+
 import Product from '../models/Product.js';
 import ViewedProduct from '../models/ViewedProduct.js';
+import ProductSize from '../models/ProductSize.js';
 import Image from '../models/Image.js';
+import Size from '../models/Size.js';
+import { filterProductOptions } from '../utils/product.js';
+import { getOrderBy, calcOffset } from '../utils/filter.js';
 
 class ProductController {
-    async create(req, res, next) {
+    async create(req, res) {
         const data = matchedData(req);
         const product = await Product.create(data);
 
-        return res.json(product);
+        const sizes = data.sizes ?? [];
+
+        if (sizes.length) {
+            sizes.forEach(async (sizeId) => {
+                await ProductSize.create({ sizeId, productId: product.id });
+            });
+        }
+
+        return res.json({ ...product.dataValues, productSizes: sizes });
     }
 
-    async getAll(req, res, next) {
+    async getAll(req, res) {
         const data = matchedData(req);
-        let products = await Product.findAll({ where: data });
+
+        // Get filtered options
+        const options = await filterProductOptions(data, ['categoryId', 'brandId', 'colorId']);
+
+        // Get orderBy
+        const order = getOrderBy(data.orderBy, data.sortBy);
+
+        // Calc offset
+        const maxProductLimit = process.env.MAX_PRODUCT_LIMIT;
+        const limit = data.limit ?? 10;
+        const page = data.page ?? 1;
+        const offset = calcOffset(limit, maxProductLimit, page);
+
+        // Get sizes
+        const sizes = data.sizes ?? [];
+
+        const products = await Product.findAll({
+            where: options,
+            order,
+            offset,
+            limit,
+            include: {
+                model: ProductSize,
+                attributes: ['sizeId'],
+                where: {
+                    sizeId: sizes,
+                },
+            },
+        });
 
         return res.json(products);
     }

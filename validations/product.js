@@ -1,43 +1,82 @@
-import { body, param } from 'express-validator';
+import { body, param, query } from 'express-validator';
 
 export const productGetAllValidation = [
-    body('minPrice')
+    query('name')
         .optional()
         .notEmpty()
-        .withMessage('minPrice must not be empty')
-        .isInt()
-        .withMessage('minPrice must be a number'),
-    body('maxPrice')
-        .optional()
-        .notEmpty()
-        .withMessage('maxPrice must not be empty')
-        .isInt()
-        .withMessage('maxPrice must be a number'),
-    body('gender')
+        .withMessage('name must not be empty')
+        .isString()
+        .withMessage('name must be a string'),
+    query('gender')
         .optional()
         .notEmpty()
         .withMessage('gender must not be empty')
         .isIn(['M', 'F'])
         .withMessage("gender can be 'M' or 'F'"),
-    body('categoryId')
+    query('categoryId')
         .optional()
         .notEmpty()
         .optional()
         .withMessage('categoryId must not be empty')
         .isInt()
-        .withMessage('categoryId must be a number'),
-    body('brandId')
+        .withMessage('categoryId must be a number')
+        .toInt(),
+    query('brandId')
         .optional()
         .notEmpty()
         .withMessage('brandId must not be empty')
         .isInt()
-        .withMessage('brandId must be a number'),
-    body('colorId')
+        .withMessage('brandId must be a number')
+        .toInt(),
+    query('colorId')
         .optional()
         .notEmpty()
         .withMessage('colorId must not be empty')
         .isInt()
-        .withMessage('colorId must be a number'),
+        .withMessage('colorId must be a number')
+        .toInt(),
+    body('sizes')
+        .optional()
+        .notEmpty()
+        .withMessage('sizes must not be empty')
+        .isArray()
+        .withMessage('sizes must be an array'),
+    query('minPrice')
+        .optional()
+        .notEmpty()
+        .withMessage('minPrice must not be empty')
+        .isInt()
+        .withMessage('minPrice must be a number'),
+    query('maxPrice')
+        .optional()
+        .notEmpty()
+        .withMessage('maxPrice must not be empty')
+        .isInt()
+        .withMessage('maxPrice must be a number'),
+    query('orderBy')
+        .optional()
+        .notEmpty()
+        .withMessage('orderBy must not be empty')
+        .isString()
+        .withMessage('orderBy must be a string'),
+    query('sortBy')
+        .optional()
+        .notEmpty()
+        .withMessage('sortBy must not be empty')
+        .isIn(['ASC', 'DESC'])
+        .withMessage("sortBy can be 'ASC' or 'DESC'"),
+    query('page')
+        .optional()
+        .notEmpty()
+        .withMessage('page must not be empty')
+        .isInt()
+        .withMessage('page must be a number'),
+    query('limit')
+        .optional()
+        .notEmpty()
+        .withMessage('limit must not be empty')
+        .isInt()
+        .withMessage('limit must be a number'),
 ];
 
 export const productGetOneValidation = [
@@ -94,6 +133,12 @@ export const productCreateValidation = [
         .withMessage('colorId must not be empty')
         .isInt()
         .withMessage('colorId must be a number'),
+    body('sizes')
+        .optional()
+        .notEmpty()
+        .withMessage('sizes must not be empty')
+        .isArray()
+        .withMessage('sizes must be an array'),
 ];
 
 export const productRemoveValidation = [
