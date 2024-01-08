@@ -4,7 +4,6 @@ import Product from '../models/Product.js';
 import ViewedProduct from '../models/ViewedProduct.js';
 import ProductSize from '../models/ProductSize.js';
 import Image from '../models/Image.js';
-import Size from '../models/Size.js';
 import { filterProductOptions } from '../utils/product.js';
 import { getOrderBy, calcOffset } from '../utils/filter.js';
 
@@ -40,7 +39,7 @@ class ProductController {
         const offset = calcOffset(limit, maxProductLimit, page);
 
         // Get sizes
-        const sizes = data.sizes ?? [];
+        const productSizeOptions = data.sizes?.length ? { sizeId: data.sizes } : null;
 
         const products = await Product.findAll({
             where: options,
@@ -50,9 +49,7 @@ class ProductController {
             include: {
                 model: ProductSize,
                 attributes: ['sizeId'],
-                where: {
-                    sizeId: sizes,
-                },
+                where: productSizeOptions,
             },
         });
 
