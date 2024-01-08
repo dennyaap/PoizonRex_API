@@ -38,7 +38,7 @@ class ProductController {
         const page = data.page ?? 1;
         const offset = calcOffset(limit, maxProductLimit, page);
 
-        // Get sizes
+        // Get product size options
         const productSizeOptions = data.sizes?.length ? { sizeId: data.sizes } : null;
 
         const products = await Product.findAll({
