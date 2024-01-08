@@ -11,6 +11,7 @@ import Favorite from './Favorite.js';
 import Cart from './Cart.js';
 import OrderContent from './OrderContent.js';
 import Image from './Image.js';
+import { ProductSize } from './ProductSize.js';
 
 const Product = sequelize.define('product', {
     id: {
@@ -74,5 +75,8 @@ Cart.belongsTo(Product);
 
 Product.hasMany(OrderContent);
 OrderContent.belongsTo(Product);
+
+Product.hasMany(ProductSize);
+ProductSize.belongsTo(Product);
 
 export default Product;
