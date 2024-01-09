@@ -6,6 +6,7 @@ import userRouter from './userRouter.js';
 import brandRouter from './brandRouter.js';
 import colorRouter from './colorRouter.js';
 import sizeRouter from './sizeRouter.js';
+import favoriteRouter from '../routes/favoriteRouter.js';
 
 import CheckRoleMiddleware from '../middleware/CheckRoleMiddleware.js';
 import AuthMiddleware from '../middleware/AuthMiddleware.js';
@@ -18,6 +19,7 @@ router.use('/user', userRouter);
 router.use(AuthMiddleware);
 
 router.use('/product', productRouter);
+router.use('/favorite', favoriteRouter);
 router.use('/category', categoryRouter);
 router.use('/brand', brandRouter);
 router.use('/color', colorRouter);
