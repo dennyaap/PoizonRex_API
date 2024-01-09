@@ -5,3 +5,4 @@ export { default as brandController } from './BrandController.js';
 export { default as roleController } from './RoleController.js';
 export { default as colorController } from './ColorController.js';
 export { default as sizeController } from './SizeController.js';
+export { default as favoriteController } from './FavoriteController.js';
