@@ -7,6 +7,7 @@ import brandRouter from './brandRouter.js';
 import colorRouter from './colorRouter.js';
 import sizeRouter from './sizeRouter.js';
 import favoriteRouter from '../routes/favoriteRouter.js';
+import deliveryTypeRouter from '../routes/deliveryTypeRouter.js';
 
 import CheckRoleMiddleware from '../middleware/CheckRoleMiddleware.js';
 import AuthMiddleware from '../middleware/AuthMiddleware.js';
@@ -25,5 +26,6 @@ router.use('/brand', brandRouter);
 router.use('/color', colorRouter);
 router.use('/role', CheckRoleMiddleware(roles.ADMIN), roleRouter);
 router.use('/size', sizeRouter);
+router.use('/deliveryType', deliveryTypeRouter);
 
 export default router;
