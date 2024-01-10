@@ -6,3 +6,4 @@ export { default as roleController } from './RoleController.js';
 export { default as colorController } from './ColorController.js';
 export { default as sizeController } from './SizeController.js';
 export { default as favoriteController } from './FavoriteController.js';
+export { default as cartController } from './CartController.js';

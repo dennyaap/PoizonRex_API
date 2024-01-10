@@ -7,6 +7,11 @@ const Cart = sequelize.define('cart', {
         primaryKey: true,
         autoIncrement: true,
     },
+    count: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 1,
+    },
 });
 
 export default Cart;
